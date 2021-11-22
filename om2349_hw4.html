@@ -1,0 +1,205 @@
+<!doctype html>
+<html>
+<!--class="no-js" lang="">-->
+<style>
+
+
+  .outlayer{
+    background-color: RGB(1, 137, 63);
+    width: 70%;
+    height: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 650px;
+    min-height: 650px;
+  }
+  .grid {
+    background-color: #01893f;
+    width: 50%;
+    height: 50%;
+    display: grid;
+    flex-wrap: wrap;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-45%, -60%);
+    border:none;
+    grid-template-columns: auto auto auto;
+
+  }
+
+  .square {
+    background-color: #01893f;
+    height: 100px;
+    width: 100px;
+    border:none;
+    ackground-color: #01893f;
+    height: 100px;
+    width: 100px;
+    border: none;
+    border-block: none;
+    border-bottom: none;
+    border-top: none;
+
+  }
+  .squareup {
+    text-align: center;
+    color: greenyellow;
+    font-size: 20px;
+    height: 100px;
+    width: 100px;
+    border:none;
+
+  }
+  .img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70px;
+  }
+
+  .num {
+    color: white;
+    font-size: 50px;
+
+  }
+
+  .btn{
+    top: 136%;
+    background-color: #01893f;
+    text-align: center;
+    color: greenyellow;
+    font-size: 17px;
+    border-style: solid;
+    border-color: greenyellow;
+    left: 30%;
+    top:127%;
+    position: absolute;
+    width: 130px;
+    height: 30px;
+    border-width: thin;
+    padding-top:5px;
+  }
+
+.btn:hover {background-color: #01893f}
+
+.btn:active {
+  background-color: #01893f;
+  box-shadow: 0 5px #01893f;
+  transform: translateY(2px);
+}
+
+</style>
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+
+</head>
+
+<body>
+
+  <!-- Add your site or application content here -->
+<div class="outlayer">
+  <div class="grid">
+    <span><div class="squareup" id="11">Timer:<br><span><div class="num" id="t">0</div></span></div></span>
+    <div class="squareup" id="12"></div>
+    <span><div class="squareup"id="13">Score:<br><span><div class="num" id="s">0</div></span></div></span>
+
+    <div class="square" ><img class="img" id="1" onclick="wacked(this.id)" src="hole.png" alt="hole\mole"></div>
+    <div class="square" ><img class="img" id="2" onclick="wacked(this.id)" src="hole.png" alt="hole\mole"></div>
+    <div class="square" ><img class="img" id="3" onclick="wacked(this.id)" src="hole.png" alt="hole\mole"></div>
+    <div class="square" ><img class="img" id="4" onclick="wacked(this.id)" src="hole.png" alt="hole\mole"></div>
+    <div class="square" ><img class="img" id="5" onclick="wacked(this.id)" src="hole.png" alt="hole\mole"></div>
+    <div class="square" ><img class="img" id="6" onclick="wacked(this.id)" src="hole.png" alt="hole\mole"></div>
+    <div class="square" ><img class="img" id="7" onclick="wacked(this.id)" src="hole.png" alt="hole\mole"></div>
+    <div class="square" ><img class="img" id="8" onclick="wacked(this.id)" src="hole.png" alt="hole\mole"></div>
+    <div class="square" ><img class="img" id="9" onclick="wacked(this.id)" src="hole.png" alt="hole\mole"></div>
+    <div class="square" ></div>
+      <div class="sqaure"><button class="btn" type="button" onclick="start_game()">Reset Game</button></div>
+    <div class="square" ></div>
+
+  </div>
+</div>
+
+  <script>
+const time_board = document.querySelector('#t');
+
+let timer_id = null;
+let count_down_id = setInterval(0, 1000);
+let current_time = 61;
+var scoreGame = 0;
+
+
+function start_game() {
+      current_time = 61;
+      document.getElementById("s").innerHTML = 0;
+      for (let i = 1; i <= 9; i++) {
+        document.getElementById(i).src = "hole.png"
+      }
+
+      clearInterval(count_down_id)
+      count_down_id = setInterval(count_down, 1000);
+
+}
+
+function count_down() {
+
+
+   if (current_time == 0) {
+     current_time = 0
+     document.getElementById("s").innerHTML = 0;
+     clearInterval(count_down_id);
+     clearInterval(timer_id);
+     alert('GAME OVER!');
+   } else {
+     --current_time;
+     time_board.textContent = current_time;
+     mole = Math.floor(Math.random() * 11);
+     random_mole(mole);
+   }
+
+}
+
+function random_mole(mole) {
+
+    document.getElementById(mole).src = "mole.png";
+    random_hole(mole);
+}
+
+
+function random_hole(hole) {
+    setTimeout(() => { document.getElementById(hole).src = "hole.png"; }, random_seconds());
+}
+
+
+function random_seconds() {
+    return (Math.floor(Math.random() * (2500 - 500)) + 500);
+}
+//Geneare min 0.5 sec : https://www.w3schools.com/js/js_random.asp
+
+
+function wacked(get_id) {
+    scoreGame = Number(document.getElementById("s").innerHTML);
+
+    let pic = document.getElementById(get_id);
+
+    if (pic.getAttribute('src') == "mole.png") {
+        scoreGame = scoreGame + 1;
+        document.getElementById("s").innerHTML = scoreGame;
+        document.getElementById(get_id).src = "hole.png"
+    }
+
+}
+  </script>
+</body>
+
+</html>
+
+
+
+
